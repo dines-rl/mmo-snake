@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MMO Snake</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div id="app">
+    <div id="overlay">
+      <h1>MMO Snake</h1>
+      <input id="name-input" type="text" placeholder="Enter your name..." maxlength="16" autofocus />
+      <button id="play-btn">Play</button>
+      <p class="controls-hint">WASD or Arrow Keys to move</p>
+    </div>
+    <div id="death-screen" class="hidden">
+      <h2>You died!</h2>
+      <p id="death-score"></p>
+      <button id="respawn-btn">Respawn</button>
+    </div>
+    <canvas id="game-canvas"></canvas>
+    <div id="hud">
+      <div id="score-display">Score: 0</div>
+      <div id="player-count"></div>
+    </div>
+    <div id="leaderboard">
+      <h3>Leaderboard</h3>
+      <ol id="lb-list"></ol>
+    </div>
+    <div id="minimap-container">
+      <canvas id="minimap"></canvas>
+    </div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

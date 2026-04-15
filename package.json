@@ -4,8 +4,7 @@
   "description": "MMO Snake game",
   "type": "module",
   "scripts": {
-    "dev": "node server/index.js",
-    "dev:client": "vite --port 5000"
+    "dev": "node server/index.js"
   },
   "keywords": [],
   "author": "",

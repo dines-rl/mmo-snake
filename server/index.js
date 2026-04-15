@@ -1,15 +1,31 @@
 import { WebSocketServer } from 'ws';
-import { createServer } from 'http';
+import { createServer as createViteServer } from 'vite';
 import { GameEngine } from './engine.js';
 
-const PORT = 5001;
+const PORT = 5000;
 const TICK_RATE = 150; // ms per game tick
 
-const server = createServer();
-const wss = new WebSocketServer({ server, path: '/ws' });
 const engine = new GameEngine();
-
 let playerIdCounter = 0;
+
+// Create Vite dev server as middleware
+const vite = await createViteServer({
+  root: '.',
+  server: {
+    port: PORT,
+    host: '0.0.0.0',
+    allowedHosts: true,
+    hmr: {
+      // HMR over the same server
+    },
+  },
+  configFile: false,
+});
+
+const httpServer = vite.httpServer;
+
+// Attach WebSocket server to the same HTTP server
+const wss = new WebSocketServer({ server: httpServer, path: '/ws' });
 
 wss.on('connection', (ws) => {
   const playerId = ++playerIdCounter;
@@ -28,7 +44,6 @@ wss.on('connection', (ws) => {
     },
   }));
 
-  // Send current leaderboard
   ws.send(JSON.stringify({
     type: 'leaderboard',
     entries: engine.getLeaderboard(),
@@ -70,7 +85,6 @@ setInterval(() => {
     }
   }
 
-  // Send leaderboard less frequently (every 5 ticks)
   if (engine.tickCount % 5 === 0) {
     for (const client of wss.clients) {
       if (client.readyState === 1) {
@@ -80,6 +94,5 @@ setInterval(() => {
   }
 }, TICK_RATE);
 
-server.listen(PORT, '0.0.0.0', () => {
-  console.log(`Game server running on ws://0.0.0.0:${PORT}/ws`);
-});
+await vite.listen();
+console.log(`MMO Snake running on http://0.0.0.0:${PORT}`);

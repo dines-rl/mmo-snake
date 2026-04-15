@@ -1,0 +1,17 @@
+{
+  "name": "mmo-snake",
+  "version": "1.0.0",
+  "description": "MMO Snake game",
+  "type": "module",
+  "scripts": {
+    "dev": "node server/index.js",
+    "dev:client": "vite --port 5000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vite": "^8.0.8",
+    "ws": "^8.20.0"
+  }
+}

@@ -5,7 +5,7 @@ export default defineConfig({
   server: {
     port: 5000,
     host: '0.0.0.0',
-    allowedHosts: 'all',
+    allowedHosts: true,
     proxy: {
       '/ws': {
         target: 'ws://localhost:5001',

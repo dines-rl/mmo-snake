@@ -80,6 +80,6 @@ setInterval(() => {
   }
 }, TICK_RATE);
 
-server.listen(PORT, () => {
-  console.log(`Game server running on ws://localhost:${PORT}/ws`);
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`Game server running on ws://0.0.0.0:${PORT}/ws`);
 });
